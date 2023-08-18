@@ -1,0 +1,50 @@
+{% from 'helper.html' import displayField %}
+{% extends "layout.html" %}
+{% block title %} Add Show {% endblock %}
+{% block content %} 
+
+<div>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarSupportedContent" style="">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link active" href="#">Admin</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/ad_logout">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/venues">Venues</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<main class="text-center">
+  <h1 class="h3 mb-3 fw-normal"> New Show </h1>
+  <form action="{{ url_for('show', id=id) }}", method='POST'>
+    <div class="form-floating">
+    {{ displayField(form.title, 'Title', autocomplete="on", autofocus=true)}}
+    {{ displayField(form.venue,'Venue')}}
+    {{ displayField(form.timing,'Timing')}}
+    {{ displayField(form.day,'Day')}}
+    {{ displayField(form.rating,'Rating')}}
+    {{ displayField(form.capacity,'capacity')}}
+    {{ displayField(form.price,'Price')}}
+    {{ displayField(form.available_seats,'Seats Available')}}
+    <div>
+    {{ form.submit_button }}
+    </div>
+      
+      {{ form.csrf_token }}
+  </form> 
+</main>	
+{% endblock %}

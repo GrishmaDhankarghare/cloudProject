@@ -1,0 +1,75 @@
+{% from 'helper.html' import displayField %}
+{% extends "layout.html" %}
+{% block title %} Booking Show {% endblock %}
+{% block content %} 
+
+<div>
+  <nav class="navbar navbar-expand-lg bg-light-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><form method="POST" action="{{ url_for('search') }}" class="d-flex" role="search"> {{ form.csrf_token }}
+        <input class="form-control me-2" type="search" placeholder="Shows/Venues" aria-label="Search", name="searched">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form></a>
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarSupportedContent" style="">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/new user">Sign up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Admin</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<div> 
+<div class="container px-4 py-5" id="custom-cards">
+  <main>
+    <form action="{{ url_for('booking',id=id) }}", method='POST'>
+      <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" ><h2 class="pb-3 border-bottom "> Show {{ show.id }} </h2>
+          <div class="d-flex flex-column h-100 p-2 pb-1 text-white text-shadow-1">
+            <p class="pt-2 mt-2 mb-2 display-6 lh-1 fw-bold">{{ show.title }}</p>
+            <p class="pt-2 mt-2 mb-2 display-10 lh-1 fw-bold">At {{ show.venue }}</p>
+              <ul class="d-flex list-unstyled mt-auto">
+                <li class="d-flex align-items-center me-3">{{ show.rating }} Star</li>
+                <li class="d-flex align-items-center">At the  price of {{ show.price }}only </li>
+              </ul>
+            <p class="pt-2 mt-2 mb-2 display-10 lh-1 fw-bold"> {{ show.capacity }} Total Seats
+           and {{ show.available_seats }} Seats are available </p>
+              <ul class="d-flex list-unstyled mt-auto">
+                <li class="d-flex align-items-center me-3"> On {{ show.day }}DAY</li>
+                <li class="d-flex align-items-center"> At {{ show.timing }}</li>
+              </ul>
+              <ul class="d-flex list-unstyled mt-auto">
+              <h1 class="h3 mb-3 fw-normal"> Fill in</h1>
+                <li class="d-flex align-items-center me-3">
+                <h5> {{ displayField(form.no_of_tickets, 'No. of Tickets', autocomplete="off", autofocus=true)}} <h5></a>
+                </li>
+               <li class="d-flex align-items-center">
+               <h5> {{ displayField(form.total_price,'Total Price')}} <h5>
+               </li>
+             </ul>
+           <div>
+	   {{ form.submit_button }}
+           </div>
+        {{ form.csrf_token }}
+        </div>
+      </div>
+    </form> 
+  </main>
+</div>  
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %} Booked Tickets {% endblock %}
+{% block content %} 
+
+<div>
+  <nav class="navbar navbar-expand-lg bg-light-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><form method="POST" action="{{ url_for('search') }}" class="d-flex" role="search"> {{ form.csrf_token }}
+        <input class="form-control me-2" type="search" placeholder="Shows/Venues" aria-label="Search", name="searched">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form></a>
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarSupportedContent" style="">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/new user">Sign up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/tickets">Tickets</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin">Admin</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class="album py-5 bg-light">
+  <div class="container">
+  {% for ticket in tickets %}  
+    {% if id == ticket.user_id %}
+    {% for show in shows %}
+      {% if show.id == ticket.show_id %}
+      <div class="col">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <p class="card-text">{{show.title }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#Content{{ticket.id}}" aria-controls="Content{{ticket.id}}" aria-expanded="false" aria-label="Toggle details">Details</button> 
+     	        <div class="collapse" id="Content{{ ticket.id }}">
+                  <span class="content me-auto mb-2 mb-lg-0"> At {{ show.venue }} for {{ticket.no_of_tickets}} persons  on {{show.day}}DAY at {{show.timing}} at cost of {{ ticket.total_price }} </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+      {% endif %}
+    {% endfor %}
+    {% endif %}
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}
